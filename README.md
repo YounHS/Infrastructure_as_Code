@@ -1,4 +1,8 @@
 # learn-docker
+> [DockerHub link](https://hub.docker.com/repository/docker/captainteemo/secy/general)
+>
+> [GHCR Packages Docker image link](https://github.com/YounHS?tab=packages)
+
 ### Docker 이미지 생성 및 배포 방법
 
 ##### 우선, Dockerhub에 배포할 시, Dockerhub 로그인
