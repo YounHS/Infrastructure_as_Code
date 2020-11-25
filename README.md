@@ -1,5 +1,5 @@
 # learn-docker
-> [DockerHub link](https://hub.docker.com/repository/docker/captainteemo/secy/general)
+> [YounHS's DockerHub repo link](https://hub.docker.com/u/captainteemo)
 >
 > [GHCR Packages Docker image link](https://github.com/YounHS?tab=packages)
 
