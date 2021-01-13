@@ -1,72 +1,41 @@
-# learn-docker
-> [YounHS's DockerHub repo link](https://hub.docker.com/u/captainteemo)
->
-> [GHCR Packages Docker image link](https://github.com/YounHS?tab=packages)
+# Let's do IaC!!!
+> Let's learn Infrastructure as Code!!!
 
-### Docker 이미지 생성 및 배포 방법
+### IaC
 
-##### 우선, Dockerhub에 배포할 시, Dockerhub 로그인
+1. ##### 컨테이너
 
-```bash
-docker login
-```
+   - **Docker**
 
-##### Dockerhub에서 사용하고자 하는 운영체제(ex. Ubuntu)의 이미지를 다운로드
+   - rkt
 
-```bash
-docker pull ubuntu:18.04
-```
+   - LXC
 
-##### 다운로드 받은 이미지를 컨테이너로 올리고 접속
+2. ##### 환경 구성 관리
 
-```bash
-docker run --name [whatever name you want] -it [Image:Tag]
-```
+   - **Ansible**
 
-##### 작업 후, 새로운 터미널을 열어 현재 활성화된 컨테이너의 ID 확인
+   - Salt
 
-```bash
-docker ps -a
-```
+   - Chef
 
-##### 확인한 컨테이너 ID를 커밋하여 새로운 이미지 생성
+   - Puppet
 
-```bash
-docker commit -a "message" [ContainerID] [whatever imagename you want]:[whatever Tag you want]
-```
+3. ##### 컨테이너 오케스트레이션
 
-##### 생성한 새로운 이미지에 태그 달기
+   - **K8s**
 
-```bash
-docker tag [created image name]:[created image Tag] [DockerhubID]/[created image name]:[created image Tag]
-```
+   - Mesos
 
-##### Tag가 적용된 이미지를 Docker Hub에 배포
+   - Docker Swarm
 
-```bash
-docker push [DockerhubID]/[created image name]:[created image Tag]
-```
+   - Nomad
 
-------
+4. ##### 인프라 프로비저닝
 
-### Github container registry로 배포 방법
+   - **Terraform**
 
-##### github profile에서 settings -> Developer settings -> Personal access tokens -> Generate new token 에서 Note(간단한 설명) 작성 및 상단의 repo, write, read, delete 체크박스 모두 체크
+   - CloudFormation
 
-![Token_check_list](https://github.com/YounHS/learn-docker/blob/main/picture/token_check.png)
+   - Pulumi
 
-##### 토큰 값을 txt 파일로 저장 후, ghcr.io 토큰 인증 및 로그인
-
-```bash
-cat [토큰 값이 저장된 파일] | docker login ghcr.io -u [GithubID] --password-stdin
-```
-
-##### 토큰 인증 및 로그인 후, 하단 명령을 통해 태그 생성 및 배포
-
-```bash
-docker tag [created image name]:[created image Tag] ghcr.io/[Github Nickname]/[created image name]:[created image Tag]
-```
-
-```bash
-docker push ghcr.io/[Github Nickname]/[created image name]:[created image Tag]
-```
