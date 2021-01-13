@@ -3,7 +3,7 @@
 
 ### IaC
 
-4. ##### [인프라 프로비저닝](https://github.com/YounHS/Infrastructure_as_Code/tree/main/infrastructure_provisioning)
+4. ##### 인프라 프로비저닝
 
    - **Terraform**
 

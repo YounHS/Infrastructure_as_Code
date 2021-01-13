@@ -3,7 +3,7 @@
 
 ### IaC
 
-2. ##### [환경 구성 관리](https://github.com/YounHS/Infrastructure_as_Code/tree/main/configuration_management)
+2. ##### 환경 구성 관리
 
    - **Ansible**
 
