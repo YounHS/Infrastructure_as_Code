@@ -46,7 +46,7 @@
 3. ansible-playbook test
 
    ```shell
-$ ansible-playbook -i hosts.ini test.yml
+   $ ansible-playbook -i hosts.ini test.yml
    [WARNING]: Invalid characters were found in group names but not replaced, use
    -vvvv to see details
    
