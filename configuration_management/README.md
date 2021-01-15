@@ -1,84 +1,86 @@
-# How to set playbook???
-> Let's learn, how to set playbook
+# Learn-configuration_mgmt!!!
+> Let's learn configuration_mgmt
 
-### Ansible-playbook?
+### IaC
 
-> 모듈 호출의 중심에 있는 ansible code
+2. ##### 환경 구성 관리
+
+   - **Ansible**
+
+   - Salt
+
+   - Chef
+
+   - Puppet
+
+
+
+### Ansible?
+
+> 인프라 관리를 코드 기반으로 자동화하는 툴
 >
-> YAML로 작성
+> IaC를 지향하는 오픈소스 기반의 자동화 관리 툴
+>
+> 자동 구축/관리 역할을 하는 원격 인프라(서버)에게 명령을 전달하는 방식으로 동작
 
 
 
-##### Playbook tutorial
+##### 특징
 
-1. YAML example (test.yml)
+1. Agentless
 
-   ```yaml
-   --- <1>
-   - name: yaml test <2>
-     hosts: test-12 <3>
-     ...
-   ```
+   - 원격 서버에 에이전트를 설치하던 기존 IaC 솔루션에서 탈피
 
-   - <1>: YAML 문서임을 알림
+   - SSH 기반으로 원격 서버에 명령을 전달하기 때문에 에이전트 필요 X
 
-   - <2>: 로그에 표시되는 이름
+   - 에이전트 설치 단계를 제거하여 인프라 구축 자동화에 용이
 
-   - <3>: 배포 대상 호스트 지정. all로 설정 시, 인벤토리로 정의된 모든 호스트를 대상으로 함
+2. 접근 용이성
 
-     
+   - 명령 모음집(Playbook)을 YAML 형식의 파일로 관리
 
-2. Inventory example (hosts.ini)
+   - YAML의 가독성이 우수하기 때문에 ansible의 진입장벽이 낮음
 
-   ```yaml
-   test-12 ansible_host=test@192.168.0.15 <1>
-   
-   [slave-group1] <2>
-   test-12
-   ```
+3. 멱등성
 
-   - <1>: [서버이름] ansible_host=[서버유저명]@[서버IP]
+   : 여러번 수행해도 같은 결과를 산출
 
-   - <2>: 여러 개의 호스트르르 그룹화
-
-     
-
-3. ansible-playbook test
-
-   ```shell
-$ ansible-playbook -i hosts.ini test.yml
-   [WARNING]: Invalid characters were found in group names but not replaced, use
-   -vvvv to see details
-   
-   PLAY [first test] **************************************************************
-   
-   TASK [Gathering Facts] *********************************************************
-   ok: [test-12]
-   
-   PLAY RECAP *********************************************************************
-   test-12                     : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-   ```
-   
-   - ansible-playbook -i [Inventory file] [playbook yml]
    - YAML로 관리되는 Playbook을 여러번 수행해도 언제나 같은 결과 산출
 
 
 
-##### Playbook module (hosts.ini)
+##### 용어
 
-1. To do...
+1. Master server
+
+   : ansible 명령을 여러 원격 서버에 전달하는 주체
+
+2. 인벤토리(Ansible hosts)
+
+   Master server가 명령을 전달할 원격 서버들의 목록
+
+   /etc/ansible/hosts 파일에 서버들의 목록이 저장되어 있으며, 이를 인벤토리라 명명
+
+3. 플레이북
+
+   원격 서버에 전달할 명령들을 모아둔 명령집
+
+   AKA. 스크립트 파일
 
 
 
+##### 설치
 
-[참고자료](https://wickso.me/ansible/basic/)
+> 설치 환경: Ubuntu 18.04 / x86_64
 
-------
+```bash
+sudo apt-get update
 
-##### To do
+sudo apt-get install software-properties-common
+sudo apt-add-repository ppa:ansible/ansible
 
-<<<<<<< HEAD
-> playbook module 컨텐트 정리
-=======
-[참고링크](https://5equal0.tistory.com/entry/Ansible-%EC%95%A4%EC%84%9C%EB%B8%94Ansible-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%84%A4%EC%B9%98%EC%82%AC%EC%9A%A9%EB%B2%95-w-CentOS-76)
->>>>>>> d0392ff85f37ebd6048f09eda76608697311588e
+sudo apt-get update
+
+sudo apt-get install ansible -y
+```
+
