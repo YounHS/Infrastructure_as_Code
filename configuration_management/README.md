@@ -77,4 +77,8 @@ $ ansible-playbook -i hosts.ini test.yml
 
 ##### To do
 
+<<<<<<< HEAD
 > playbook module 컨텐트 정리
+=======
+[참고링크](https://5equal0.tistory.com/entry/Ansible-%EC%95%A4%EC%84%9C%EB%B8%94Ansible-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%84%A4%EC%B9%98%EC%82%AC%EC%9A%A9%EB%B2%95-w-CentOS-76)
+>>>>>>> d0392ff85f37ebd6048f09eda76608697311588e
