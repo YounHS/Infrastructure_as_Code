@@ -53,7 +53,7 @@ docker push [DockerhubID]/[created image name]:[created image Tag]
 
 ##### github profile에서 settings -> Developer settings -> Personal access tokens -> Generate new token 에서 Note(간단한 설명) 작성 및 상단의 repo, write, read, delete 체크박스 모두 체크
 
-![Token_check_list](https://github.com/YounHS/learn-docker/blob/main/picture/token_check.png)
+![Token_check_list](https://github.com/YounHS/Infrastructure_as_Code/blob/main/containers/docker/picture/token_check.png)
 
 ##### 토큰 값을 txt 파일로 저장 후, ghcr.io 토큰 인증 및 로그인
 
