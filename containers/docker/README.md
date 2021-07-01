@@ -1,72 +1,84 @@
-# learn-docker
-> [YounHS's DockerHub repo link](https://hub.docker.com/u/captainteemo)
+# What a docker?
+> 컨테이너 기반의 오픈소스 가상화 플랫폼
 >
-> [GHCR Packages Docker image link](https://github.com/YounHS?tab=packages)
+> 다양한 프로그램, 실행환경을 컨테이너로 추상화하고 
+> 인터페이스를 제공하여 프로그램의 배포 및 관리를 단순하게 해줌.
 
-### Docker 이미지 생성 및 배포 방법
+### 목차
 
-##### 우선, Dockerhub에 배포할 시, Dockerhub 로그인
+**[1. 장단점](#장단점)**
 
-```bash
-docker login
-```
+**[2. Container](#Container)**
 
-##### Dockerhub에서 사용하고자 하는 운영체제(ex. Ubuntu)의 이미지를 다운로드
+**[3. Image](#Image)**
 
-```bash
-docker pull ubuntu:18.04
-```
+**[](#NCP-(Naver-Cloud-Platform))**
 
-##### 다운로드 받은 이미지를 컨테이너로 올리고 접속
 
-```bash
-docker run --name [whatever name you want] -it [Image:Tag]
-```
 
-##### 작업 후, 새로운 터미널을 열어 현재 활성화된 컨테이너의 ID 확인
+## 장단점
 
-```bash
-docker ps -a
-```
+- **장점**
+  - 쉽고 빠른 실행 환경 구축
+    - 프로젝트 개발 및 실행환경 강제화 가능
+  - 가볍고 빠른 실행 속도
+    - OS를 재구동하는, 시작 자체가 무거운 VM과 달리, 상대적으로 경량이므로 시작이 빠르며, 메모리나 스토리지 소모를 줄이면서 가상화 가능
+  - 하드웨어 자원 절감
+    - 컨테이너 크기가 매우 작고, 하나의 물리적 서버에 다수의 컨테이너 가동 가능
+    - 라이트 프로젝트의  경우, 수십개의 컨테이너 운영 가능
+  - 공유 환경 제공
+    - Docker Hub를 통해 전세계 개발자의 결과물을 얻을 수 있고, 결과물 업로드 가능
+  - 쉬운 배포
+    - 프로그램 개발 완료 시, 개발 환경 그대로 배포 가능
+- **단점(주의점)**
+  - 개발 초기의 오버헤드
+    - Docker 입문자의 경우, 환경 설정 시, 시행 착오 확률 존재
+  - Linux 친화적
 
-##### 확인한 컨테이너 ID를 커밋하여 새로운 이미지 생성
 
-```bash
-docker commit -a "message" [ContainerID] [whatever imagename you want]:[whatever Tag you want]
-```
 
-##### 생성한 새로운 이미지에 태그 달기
+## Container
 
-```bash
-docker tag [created image name]:[created image Tag] [DockerhubID]/[created image name]:[created image Tag]
-```
+> 격리된 공간에서 프로세스가 동작하는 기술
+>
+> 실행의 독립성을 확보해주는 OS 수준의 격리 기술
 
-##### Tag가 적용된 이미지를 Docker Hub에 배포
+- Image를 실행한 상태로 볼 수 있으며 추가되거나 변경 값은 Container에 저장
 
-```bash
-docker push [DockerhubID]/[created image name]:[created image Tag]
-```
+- 기존의 가상화 방식은 OS를 가상화. 이러한 가상화는 성능 이슈가 존재
 
-------
+- 상기 이슈 개선을 위해 Linux의 Linux Container(LXC), FreeBSD의 Jail, Solaris의 Solaris Zones 기술 등장
 
-### Github container registry로 배포 방법
+- Docker는 LXC를 기반으로 시작. 0.9 버전에서 자체적인 libcontainer 기술 사용.
 
-##### github profile에서 settings -> Developer settings -> Personal access tokens -> Generate new token 에서 Note(간단한 설명) 작성 및 상단의 repo, write, read, delete 체크박스 모두 체크
+- **Container와 VM 차이**
 
-![Token_check_list](https://github.com/YounHS/Infrastructure_as_Code/blob/main/containers/docker/picture/token_check.png)
+  |                    | Container |  VM  |
+  | ------------------ | :-------: | :--: |
+  | 일관성있는 Runtime env. |     O     |  O   |
+  | App. 샌드박스화         |     O     |  O   |
+  | 디스크 용량 절감          |     O     |  X   |
+  | 낮은 오버헤드            |     O     |  X   |
 
-##### 토큰 값을 txt 파일로 저장 후, ghcr.io 토큰 인증 및 로그인
 
-```bash
-cat [토큰 값이 저장된 파일] | docker login ghcr.io -u [GithubID] --password-stdin
-```
 
-##### 토큰 인증 및 로그인 후, 하단 명령을 통해 태그 생성 및 배포
+## Image
 
-```bash
-docker tag [created image name]:[created image Tag] ghcr.io/[Github Nickname]/[created image name]:[created image Tag]
-```
+> Container 실행에 필요한 파일과 설정값 등을 포함하고 있는 것
 
-```bash
-docker push ghcr.io/[Github Nickname]/[created image name]:[created image Tag]
-```
+- 상태값을 가지지 않고 변하지 않음 (Immutable)
+- 같은 Image에서 다수의 Container 생성 가능
+- Container의 상태가 변하거나 삭제되더라도 Image는 변하지 않고 남아있음
+- **레이어 저장방식**
+  - Docker Layer
+    - 기존 Image에 파일 추가 시, Image를 처음부터 다시 다운 받는 문제 해결을 위한 개념
+    - 유니온 파일 시스템을 이용하여 여러 개의 Layer를 하나의 파일 시스템으로 사용 가능
+    - Image는 여러 read-only 레이어로 구성되며 파일이 추가/수정될 시, 새로운 layer 생성
+  - Image Path
+    - URL 방식으로 관리
+    - 태그 기입 가능
+  - Dockerfile
+    - Image 생성을 위해 Dockerfile 파일에 DSLDomain specific language를 이용하여 이미지 생성 과정 기입
+    - source와 함께 버전 관리
+    - 원할 경우, 누구나 이미지 생성 과정을 보고 수정 가능
+
