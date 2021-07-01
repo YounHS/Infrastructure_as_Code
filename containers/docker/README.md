@@ -12,8 +12,6 @@
 
 **[3. Image](#Image)**
 
-**[](#NCP-(Naver-Cloud-Platform))**
-
 
 
 ## 장단점
@@ -70,14 +68,14 @@
 - 같은 Image에서 다수의 Container 생성 가능
 - Container의 상태가 변하거나 삭제되더라도 Image는 변하지 않고 남아있음
 - **레이어 저장방식**
-  - Docker Layer
+  - *Docker Layer*
     - 기존 Image에 파일 추가 시, Image를 처음부터 다시 다운 받는 문제 해결을 위한 개념
     - 유니온 파일 시스템을 이용하여 여러 개의 Layer를 하나의 파일 시스템으로 사용 가능
     - Image는 여러 read-only 레이어로 구성되며 파일이 추가/수정될 시, 새로운 layer 생성
-  - Image Path
+  - *Image Path*
     - URL 방식으로 관리
     - 태그 기입 가능
-  - Dockerfile
+  - *Dockerfile*
     - Image 생성을 위해 Dockerfile 파일에 DSLDomain specific language를 이용하여 이미지 생성 과정 기입
     - source와 함께 버전 관리
     - 원할 경우, 누구나 이미지 생성 과정을 보고 수정 가능
